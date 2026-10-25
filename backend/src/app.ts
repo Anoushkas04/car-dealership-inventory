@@ -3,6 +3,7 @@ import cors from 'cors';
 import { DatabaseSync } from 'node:sqlite';
 import { getDatabase } from './db/database';
 import { createAuthRouter } from './routes/auth.routes';
+import { createVehicleRouter } from './routes/vehicle.routes';
 
 export function createApp(db?: DatabaseSync): Application {
   const app = express();
@@ -18,6 +19,9 @@ export function createApp(db?: DatabaseSync): Application {
 
   // Auth Routes
   app.use('/api/auth', createAuthRouter(activeDb));
+
+  // Vehicle Routes (Protected)
+  app.use('/api/vehicles', createVehicleRouter(activeDb));
 
   // Global Error Handler
   app.use((err: any, req: Request, res: Response, next: NextFunction) => {
