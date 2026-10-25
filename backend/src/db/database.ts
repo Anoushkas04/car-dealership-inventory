@@ -1,13 +1,12 @@
 import path from 'path';
 import fs from 'fs';
 
-// Safely obtain native node:sqlite DatabaseSync without Vite bundling conflicts
+// Safely obtain native node:sqlite DatabaseSync without bundler conflicts
 function getNativeDatabaseSync(): any {
   if (typeof (process as any).getBuiltinModule === 'function') {
     return (process as any).getBuiltinModule('node:sqlite').DatabaseSync;
   }
-  // Fallback to dynamic require
-  const req = typeof __non_webpack_require__ !== 'undefined' ? __non_webpack_require__ : eval('require');
+  const req = eval('require');
   return req('node:sqlite').DatabaseSync;
 }
 
