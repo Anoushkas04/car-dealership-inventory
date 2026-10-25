@@ -1,8 +1,8 @@
-import { DatabaseSync } from 'node:sqlite';
+import { IDatabase } from '../types/db';
 import { User } from '../models/user';
 
 export class UserRepository {
-  constructor(private db: DatabaseSync) {}
+  constructor(private db: IDatabase) {}
 
   findByUsername(username: string): User | null {
     const stmt = this.db.prepare('SELECT * FROM users WHERE username = ?');

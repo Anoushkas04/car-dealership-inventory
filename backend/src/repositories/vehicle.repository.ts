@@ -1,8 +1,8 @@
-import { DatabaseSync } from 'node:sqlite';
+import { IDatabase } from '../types/db';
 import { Vehicle, CreateVehicleDto, UpdateVehicleDto, VehicleSearchParams } from '../models/vehicle';
 
 export class VehicleRepository {
-  constructor(private db: DatabaseSync) {}
+  constructor(private db: IDatabase) {}
 
   findAll(): Vehicle[] {
     const stmt = this.db.prepare('SELECT * FROM vehicles ORDER BY created_at DESC');

@@ -1,11 +1,11 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import { DatabaseSync } from 'node:sqlite';
+import { IDatabase } from './types/db';
 import { getDatabase } from './db/database';
 import { createAuthRouter } from './routes/auth.routes';
 import { createVehicleRouter } from './routes/vehicle.routes';
 
-export function createApp(db?: DatabaseSync): Application {
+export function createApp(db?: IDatabase): Application {
   const app = express();
   const activeDb = db || getDatabase();
 

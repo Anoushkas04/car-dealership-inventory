@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { DatabaseSync } from 'node:sqlite';
+import { IDatabase } from '../types/db';
 import { VehicleController } from '../controllers/vehicle.controller';
 import { VehicleService } from '../services/vehicle.service';
 import { VehicleRepository } from '../repositories/vehicle.repository';
@@ -7,7 +7,7 @@ import { InventoryService } from '../services/inventory.service';
 import { InventoryController } from '../controllers/inventory.controller';
 import { authMiddleware, requireAdmin } from '../middleware/auth.middleware';
 
-export function createVehicleRouter(db: DatabaseSync): Router {
+export function createVehicleRouter(db: IDatabase): Router {
   const router = Router();
   const vehicleRepo = new VehicleRepository(db);
   const vehicleService = new VehicleService(vehicleRepo);

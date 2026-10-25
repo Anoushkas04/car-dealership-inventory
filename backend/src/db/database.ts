@@ -1,12 +1,23 @@
-import { DatabaseSync } from 'node:sqlite';
 import path from 'path';
 import fs from 'fs';
 
-let dbInstance: DatabaseSync | null = null;
+// Safely obtain native node:sqlite DatabaseSync without Vite bundling conflicts
+function getNativeDatabaseSync(): any {
+  if (typeof (process as any).getBuiltinModule === 'function') {
+    return (process as any).getBuiltinModule('node:sqlite').DatabaseSync;
+  }
+  // Fallback to dynamic require
+  const req = typeof __non_webpack_require__ !== 'undefined' ? __non_webpack_require__ : eval('require');
+  return req('node:sqlite').DatabaseSync;
+}
+
+const DatabaseSync = getNativeDatabaseSync();
+
+let dbInstance: any = null;
 
 export const DEFAULT_DB_PATH = path.resolve(__dirname, '../../data/dealership.sqlite');
 
-export function initDatabase(dbPath: string = DEFAULT_DB_PATH): DatabaseSync {
+export function initDatabase(dbPath: string = DEFAULT_DB_PATH): any {
   const dir = path.dirname(dbPath);
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
@@ -14,7 +25,7 @@ export function initDatabase(dbPath: string = DEFAULT_DB_PATH): DatabaseSync {
 
   dbInstance = new DatabaseSync(dbPath);
 
-  // Enable WAL mode for better concurrency and performance
+  // Enable WAL mode for high performance concurrency and persistence
   dbInstance.exec(`
     PRAGMA journal_mode = WAL;
     PRAGMA foreign_keys = ON;
@@ -42,7 +53,7 @@ export function initDatabase(dbPath: string = DEFAULT_DB_PATH): DatabaseSync {
   return dbInstance;
 }
 
-export function getDatabase(): DatabaseSync {
+export function getDatabase(): any {
   if (!dbInstance) {
     return initDatabase();
   }
