@@ -1,0 +1,16 @@
+{
+  "name": "car-dealership-inventory-system",
+  "version": "1.0.0",
+  "description": "Full-stack Car Dealership Inventory System built with Node.js/TypeScript/Express and React/Tailwind",
+  "scripts": {
+    "start:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm run dev",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "test:backend": "cd backend && npm test",
+    "test": "npm run test:backend"
+  },
+  "keywords": ["car-dealership", "inventory", "tdd", "express", "react", "tailwind"],
+  "author": "Anoushka Sharma",
+  "license": "MIT"
+}
