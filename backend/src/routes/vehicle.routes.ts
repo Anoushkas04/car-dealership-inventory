@@ -3,6 +3,8 @@ import { DatabaseSync } from 'node:sqlite';
 import { VehicleController } from '../controllers/vehicle.controller';
 import { VehicleService } from '../services/vehicle.service';
 import { VehicleRepository } from '../repositories/vehicle.repository';
+import { InventoryService } from '../services/inventory.service';
+import { InventoryController } from '../controllers/inventory.controller';
 import { authMiddleware, requireAdmin } from '../middleware/auth.middleware';
 
 export function createVehicleRouter(db: DatabaseSync): Router {
@@ -10,6 +12,8 @@ export function createVehicleRouter(db: DatabaseSync): Router {
   const vehicleRepo = new VehicleRepository(db);
   const vehicleService = new VehicleService(vehicleRepo);
   const vehicleController = new VehicleController(vehicleService);
+  const inventoryService = new InventoryService(vehicleRepo);
+  const inventoryController = new InventoryController(inventoryService);
 
   // All vehicle endpoints require authentication
   router.use(authMiddleware);
@@ -31,6 +35,10 @@ export function createVehicleRouter(db: DatabaseSync): Router {
 
   // Delete vehicle (Admin only)
   router.delete('/:id', requireAdmin, vehicleController.delete);
+
+  // Inventory actions
+  router.post('/:id/purchase', inventoryController.purchase);
+  router.post('/:id/restock', requireAdmin, inventoryController.restock);
 
   return router;
 }
