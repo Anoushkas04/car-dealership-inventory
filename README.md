@@ -1,7 +1,7 @@
 # 🚗 Apex Motors — Car Dealership Inventory System
 
-[![Tests](https://img.shields.io/badge/Tests-38%20Passed-brightgreen)](https://github.com/)
-[![TDD](https://img.shields.io/badge/Methodology-TDD%20Red--Green--Refactor-blue)](https://github.com/)
+[![Tests](https://img.shields.io/badge/Tests-38%20Passed-brightgreen)](https://github.com/Anoushkas04/car-dealership-inventory)
+[![TDD](https://img.shields.io/badge/Methodology-TDD%20Red--Green--Refactor-blue)](https://github.com/Anoushkas04/car-dealership-inventory)
 [![Backend](https://img.shields.io/badge/Backend-Node.js%20%7C%20TypeScript%20%7C%20Express-green)](https://expressjs.com/)
 [![Database](https://img.shields.io/badge/Database-SQLite%20(Persistent%20WAL)-orange)](https://sqlite.org/)
 [![Frontend](https://img.shields.io/badge/Frontend-React%2018%20%7C%20Tailwind%20CSS-cyan)](https://react.dev/)
